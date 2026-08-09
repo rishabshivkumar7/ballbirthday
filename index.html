@@ -390,7 +390,7 @@
   const confirmedWrap = document.getElementById('rsvp-confirmed');
   const confirmedNameSpan = document.getElementById('confirmed-name');
 
-  const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxC6aHiFI7rVmKYAFs6V1RcK-oOgowodoH6Jm_nkcIfaeEOOqe4V0_Ko6kotOe8p-qQuA/exec';
+  const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz08vQm1vOIskBD5_rppgbDUQk-qEOzDgezVYJeMRaMg19MN6Wh05xvS3xg6II4XtvPiA/exec';
 
   rsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -402,11 +402,7 @@
     submitBtn.textContent = 'Confirming…';
 
     try {
-      const res = await fetch(RSVP_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ name })
-      });
+      const res = await fetch(`${RSVP_ENDPOINT}?name=${encodeURIComponent(name)}`);
       const result = await res.json();
       if (!result.ok) throw new Error(result.error || 'Save failed');
 
